@@ -1,5 +1,9 @@
+import useAuth from '../../hooks/useAuth';
+
 const Header = () => {
-    return <h1>This is Header</h1>
-}
+  const { currentUser } = useAuth();
+
+  return <h1>Welcome {currentUser.userName}</h1>;
+};
 
 export default Header;

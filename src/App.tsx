@@ -1,14 +1,13 @@
-import './App.css'
-import AppRouterProvider from './app/providers/AppRouterProvider'
-import AppLayout from './components/layout/AppLayout'
+import './App.css';
+import AppRouterProvider from './app/providers/AppRouterProvider';
+import AuthProvider from './app/providers/AuthProvider';
 
 function App() {
-  
-
   return (
-      <><AppRouterProvider>
-      </AppRouterProvider></>
-  )
+    <AuthProvider>
+      <AppRouterProvider></AppRouterProvider>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

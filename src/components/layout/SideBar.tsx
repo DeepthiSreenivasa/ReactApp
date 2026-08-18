@@ -21,18 +21,20 @@ const SideBar = () => {
   ];
 
   return (
-    <>
+    <div className="sidebar-list">
       {sideBarItems.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className="sidebar-item">
           <NavLink
             to={item.path}
-            className={({ isActive }) => (isActive ? 'active' : '')} //--> You need not create a state ,rather re use this
+            className={({ isActive }) =>
+              `sidebar-link ${isActive ? 'active' : ''}`
+            }
           >
             {item.label}
           </NavLink>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
