@@ -24,3 +24,15 @@ I'd use CSS Grid for the application shell because the layout has a two-dimensio
 
 -I would use useContext as the state rarely changes beacuse every usecontext causes a rerender when value changes, I see that name would rarely change which means it would rarely call a rerender of child comp
 -Use context can also be used to prevent props drilling
+
+# Step 6 - Implementsting Auth Context
+
+# Step 6i - Create a context
+
+# Step 6ii - Create a provider
+
+# Step 6iii - Create a hook
+
+# Step 7 : Implementing UseContext for Theme and saving theme in local storage. Every side effect has to be synchronised with the application so useEffect also has to be added accordingly
+
+Note: "useEffect is mandatory whenever localStorage is involved."
