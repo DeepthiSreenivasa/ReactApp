@@ -36,3 +36,5 @@ I'd use CSS Grid for the application shell because the layout has a two-dimensio
 # Step 7 : Implementing UseContext for Theme and saving theme in local storage. Every side effect has to be synchronised with the application so useEffect also has to be added accordingly
 
 Note: "useEffect is mandatory whenever localStorage is involved."
+
+# Step 8 : Implement a protected route

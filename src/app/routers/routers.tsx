@@ -4,6 +4,7 @@ import Dashboard from '../../features/dashboard/pages/Dashboard';
 import Markets from '../../features/markets/pages/Market';
 import Watchlists from '../../features/watchlist/pages/Watchlist';
 import AppLayout from '../../components/layout/AppLayout';
+import ProtectedRouters from './protectedRouters';
 
 const routers = createBrowserRouter([
   {
@@ -11,19 +12,24 @@ const routers = createBrowserRouter([
     element: <Login />,
   },
   {
-    element: <AppLayout></AppLayout>, //---> Pathless routing component acting as app shell
+    element: <ProtectedRouters />,
     children: [
       {
-        path: '/dashboard',
-        element: <Dashboard />,
-      },
-      {
-        path: '/markets',
-        element: <Markets />,
-      },
-      {
-        path: '/watchlist',
-        element: <Watchlists />,
+        element: <AppLayout></AppLayout>, //---> Pathless routing component acting as app shell
+        children: [
+          {
+            path: '/dashboard',
+            element: <Dashboard />,
+          },
+          {
+            path: '/markets',
+            element: <Markets />,
+          },
+          {
+            path: '/watchlist',
+            element: <Watchlists />,
+          },
+        ],
       },
     ],
   },
