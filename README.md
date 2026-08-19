@@ -49,3 +49,8 @@ Note: "useEffect is mandatory whenever localStorage is involved."
 
             - In logout you need not add the logout nvigation to login page, since you have implemented protected routes. It will
             automatically move to login Page
+
+# Step 12 : Implement market.tsx
+
+            - You shouldnt call the effect in the component
+            - Markets Component -> useMarkets(inside useMarkets UseEffect will be called, this should return data,error,loading) -> Service (inside service fetch will be called)
