@@ -8,6 +8,7 @@ const useMarkets = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('Into useEffetc');
     getMarkets()
       .then((data) => setStocks(data))
       .catch((err) => setError('Err'))

@@ -13,8 +13,20 @@ const stock: Stock[] = [
     changePercent: 0.87,
   },
 ];
-
+const api = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=compact&apikey=${apiKey}`;
 const getMarkets = async (): Promise<Stock[]> => {
-  return stock;
+  const response = await fetch(api);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch market data');
+  }
+
+  const data = await response.json();
+
+  console.log('API Respone::', data);
+
+  return [];
+
+  // return stock;
 };
 export default getMarkets;
