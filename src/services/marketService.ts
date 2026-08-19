@@ -14,8 +14,10 @@ const stock: Stock[] = [
     changePercent: 0.87,
   },
 ];
-const api = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=compact&apikey=${apiKey}`;
-const getMarkets = async (): Promise<Stock[]> => {
+
+const getMarkets = async (symbol: string): Promise<Stock> => {
+  const api = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
+  //const api = '';
   const response = await fetch(api);
 
   if (!response.ok) {
@@ -28,6 +30,6 @@ const getMarkets = async (): Promise<Stock[]> => {
 
   const stock = mapAlphaVantageStock(data);
 
-  return [stock];
+  return stock;
 };
 export default getMarkets;

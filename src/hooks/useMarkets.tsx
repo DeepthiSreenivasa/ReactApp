@@ -2,22 +2,22 @@ import { useEffect, useState } from 'react';
 import type { Stock } from '../types/stock';
 import getMarkets from '../services/marketService';
 
-const useMarkets = () => {
-  const [stocks, setStocks] = useState<Stock[]>([]);
+const useMarkets = (symbol: string) => {
+  const [stock, setStocks] = useState<Stock>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log('Into useEffetc');
-    getMarkets()
+    getMarkets(symbol)
       .then((data) => setStocks(data))
       .catch((err) => setError('Err'))
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [symbol]);
 
-  return { stocks, isLoading, error };
+  return { stock, isLoading, error };
 };
 
 export default useMarkets;

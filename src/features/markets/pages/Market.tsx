@@ -1,7 +1,7 @@
 import useMarkets from '../../../hooks/useMarkets';
 
 const Markets = () => {
-  const { stocks, isLoading, error } = useMarkets();
+  const { stock, isLoading, error } = useMarkets('RELIANCE.BSE');
 
   if (error) {
     return <span>Something went wrong</span>;
@@ -24,15 +24,13 @@ const Markets = () => {
           </tr>
         </thead>
         <tbody>
-          {stocks.map((item) => (
-            <tr key={item.symbol}>
-              <td>{item.symbol}</td>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
-              <td>{item.change}</td>
-              <td>{item.changePercent}</td>
-            </tr>
-          ))}
+          <tr>
+            <td>{stock?.symbol}</td>
+            <td>{stock?.name}</td>
+            <td>{stock?.price}</td>
+            <td>{stock?.change}</td>
+            <td>{stock?.changePercent}</td>
+          </tr>
         </tbody>
       </table>
     </>
