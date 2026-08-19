@@ -15,11 +15,13 @@ const Markets = () => {
     <>
       <table>
         <thead>
-          <th>Symbol</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Change</th>
-          <th>Change %</th>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Change %</th>
+          </tr>
         </thead>
         <tbody>
           {stocks.map((item) => (

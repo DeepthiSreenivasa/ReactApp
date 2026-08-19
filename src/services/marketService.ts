@@ -1,5 +1,9 @@
 import type { Stock } from '../types/stock';
 
+const apiKey = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
+
+console.log('APIKey::', apiKey);
+
 const stock: Stock[] = [
   {
     name: 'Reliance Industries',
