@@ -44,3 +44,5 @@ Note: "useEffect is mandatory whenever localStorage is involved."
 # Step 10 : Use the auth Provider in login component
 
            - Creating the login Page to accept userName and passWord
+
+# Step 11 : Use the auth Provider for logout
