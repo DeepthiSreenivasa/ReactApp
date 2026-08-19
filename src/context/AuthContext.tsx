@@ -6,7 +6,9 @@ const AuthContext = createContext({
     role: '',
   },
   isAuthenticated: false,
-  //setCurrentUserDetails: () => {},
+  // login: async (): Promise<boolean> => false,
+  setLogin: (): boolean => false,
+  setLogout: () => {},
 });
 
 export default AuthContext;

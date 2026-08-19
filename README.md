@@ -38,3 +38,9 @@ I'd use CSS Grid for the application shell because the layout has a two-dimensio
 Note: "useEffect is mandatory whenever localStorage is involved."
 
 # Step 8 : Implement a protected route
+
+# Step 9 : Implement login logout with auth Provider
+
+# Step 10 : Use the auth Provider in login component
+
+           - Creating the login Page to accept userName and passWord
