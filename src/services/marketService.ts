@@ -1,4 +1,5 @@
 import type { Stock } from '../types/stock';
+import mapAlphaVantageStock from './marketMapper';
 
 const apiKey = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
 
@@ -25,8 +26,8 @@ const getMarkets = async (): Promise<Stock[]> => {
 
   console.log('API Respone::', data);
 
-  return [];
+  const stock = mapAlphaVantageStock(data);
 
-  // return stock;
+  return [stock];
 };
 export default getMarkets;
