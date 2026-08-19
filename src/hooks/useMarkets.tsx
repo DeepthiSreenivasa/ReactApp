@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Stock } from '../types/stock';
-import getMarkets from '../services/marketService';
+import { getMarkets } from '../services/marketService';
 
 const useMarkets = (symbol: string) => {
   const [stock, setStocks] = useState<Stock>();

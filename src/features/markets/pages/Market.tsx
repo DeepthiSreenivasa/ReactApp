@@ -1,18 +1,36 @@
 import useMarkets from '../../../hooks/useMarkets';
+import useStockSearch from '../../../hooks/useStockSearch';
 
 const Markets = () => {
-  const { stock, isLoading, error } = useMarkets('RELIANCE.BSE');
+  const {
+    stock,
+    isLoading: marketLoading,
+    error: marketError,
+  } = useMarkets('RELIANCE.BSE');
 
-  if (error) {
+  const {
+    searchResult,
+    isloading: searchLoading,
+    error: searchError,
+  } = useStockSearch('RELIANCE.BSE');
+
+  if (marketError) {
     return <span>Something went wrong</span>;
   }
 
-  if (isLoading) {
+  if (marketLoading) {
     return <span>Data still Loading...</span>;
   }
 
+  const searchStocks = () => {
+    console.log('searchResults::', searchResult);
+    console.log('isLoading::', searchLoading);
+    console.log('error::', searchError);
+  };
+
   return (
     <>
+      <button onClick={searchStocks}>Search Stocks</button>
       <table>
         <thead>
           <tr>
