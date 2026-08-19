@@ -1,16 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useTheme from '../../hooks/useTheme';
 
 const Header = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, setLogout } = useAuth();
   const { theme, setTheme } = useTheme();
-  const { setLogout } = useAuth();
-  const navigate = useNavigate();
 
   const logout = () => {
     setLogout();
-    navigate('/login');
   };
 
   return (

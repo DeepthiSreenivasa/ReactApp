@@ -46,3 +46,6 @@ Note: "useEffect is mandatory whenever localStorage is involved."
            - Creating the login Page to accept userName and passWord
 
 # Step 11 : Use the auth Provider for logout
+
+            - In logout you need not add the logout nvigation to login page, since you have implemented protected routes. It will
+            automatically move to login Page
