@@ -1,7 +1,10 @@
+import { useState, type ChangeEvent } from 'react';
 import useMarkets from '../../../hooks/useMarkets';
 import useStockSearch from '../../../hooks/useStockSearch';
 
 const Markets = () => {
+  const [searchString, setSearchString] = useState('');
+
   const {
     stock,
     isLoading: marketLoading,
@@ -9,7 +12,7 @@ const Markets = () => {
   } = useMarkets('RELIANCE.BSE');
 
   const {
-    searchResult,
+    searchResults,
     isloading: searchLoading,
     error: searchError,
   } = useStockSearch('RELIANCE.BSE');
@@ -22,15 +25,18 @@ const Markets = () => {
     return <span>Data still Loading...</span>;
   }
 
-  const searchStocks = () => {
-    console.log('searchResults::', searchResult);
-    console.log('isLoading::', searchLoading);
-    console.log('error::', searchError);
+  const searchStocks = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event.target.value);
+    console.log('searchResults::', searchResults);
   };
 
   return (
     <>
-      <button onClick={searchStocks}>Search Stocks</button>
+      <input
+        type="text"
+        value={searchString}
+        onChange={($event) => searchStocks($event)}
+      />
       <table>
         <thead>
           <tr>

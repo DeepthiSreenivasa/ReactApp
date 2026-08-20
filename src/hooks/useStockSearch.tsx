@@ -3,26 +3,51 @@ import { searchStocks } from '../services/marketService';
 import type { StockSearchResult } from '../types/stockSearchResults';
 
 const useStockSearch = (query: string) => {
-  const [searchResult, setSearchResults] = useState<StockSearchResult[]>([]);
+  const [searchResults, setSearchResults] = useState<StockSearchResult[]>([]);
   const [isloading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     if (!query.trim()) {
       setSearchResults([]);
+      setIsLoading(false);
+      setError(null);
       return;
     }
 
-    setIsLoading(true);
     setError(null);
 
-    searchStocks(query)
-      .then((data) => setSearchResults(data))
-      .catch((err) => setError(err))
-      .finally(() => setIsLoading(false));
+    const controller = new AbortController();
+
+    const timer = setInterval(() => {
+      setIsLoading(true);
+      searchStocks(query, controller)
+        .then((data) => {
+          if (controller.signal.aborted) {
+            return;
+          }
+          setSearchResults(data);
+        })
+        .catch((err) => {
+          if (controller.signal.aborted) {
+            return;
+          }
+          setError(err);
+        })
+        .finally(() => {
+          if (controller.signal.aborted) {
+            return;
+          }
+          setIsLoading(false);
+        });
+    }, 300);
+    return () => {
+      clearInterval(timer);
+      controller.abort();
+    };
   }, [query]);
 
-  return { searchResult, isloading, error };
+  return { searchResults, isloading, error };
 };
 
 export default useStockSearch;

@@ -54,3 +54,8 @@ Note: "useEffect is mandatory whenever localStorage is involved."
 
             - You shouldnt call the effect in the component
             - Markets Component -> useMarkets(inside useMarkets UseEffect will be called, this should return data,error,loading) -> Service (inside service fetch will be called)
+
+#TODO
+Global Error Handle
+WEbsockets
+Calling mock v/s real apis with just a flag

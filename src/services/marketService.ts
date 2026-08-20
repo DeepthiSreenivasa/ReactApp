@@ -36,11 +36,12 @@ export const getMarkets = async (symbol: string): Promise<Stock> => {
 };
 
 export const searchStocks = async (
-  query: string
+  query: string,
+  controller: AbortController
 ): Promise<StockSearchResult[]> => {
   const api = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${encodeURIComponent(query)}&apikey=${apiKey}`;
 
-  const response = await fetch(api);
+  const response = await fetch(api, { signal: controller.signal });
 
   if (!response.ok) {
     throw new Error('Something went wrong');
