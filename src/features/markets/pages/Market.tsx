@@ -1,13 +1,19 @@
 import { useEffect, useState, type ChangeEvent } from 'react';
 import useMarkets from '../../../hooks/useMarkets';
 import useStockSearch from '../../../hooks/useStockSearch';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { mockMarketFeed } from '../../../services/mockMarketFeed';
+import type { RootState } from '../../../store';
+import { updateLiveStock } from '../../../slice/marketSlice';
+import type { Stock } from '../../../types/stock';
 
 const Markets = () => {
   const [searchString, setSearchString] = useState('');
-  const [liveStock, setLiveStock] = useState(0);
+  //const [liveStock, setLiveStock] = useState(0);
   const dispatch = useDispatch();
+  const liveStock = useSelector(
+    (state: RootState) => state.market.liveStock?.price
+  );
 
   const {
     stock,
@@ -22,10 +28,11 @@ const Markets = () => {
   } = useStockSearch('RELIANCE.BSE');
 
   useEffect(() => {
-    // mockMarketFeed((stock) => {
-    //   console.log('Stock::', stock);
-    // });
-  }, []);
+    const unsubscribe = mockMarketFeed((stock: Stock) => {
+      dispatch(updateLiveStock(stock));
+    });
+    return unsubscribe;
+  }, [dispatch]);
 
   if (marketError) {
     console.log(marketError);
@@ -66,7 +73,7 @@ const Markets = () => {
             <td>{stock?.price}</td>
             <td>{stock?.change}</td>
             <td>{stock?.changePercent}</td>
-            {/* <td>{liveStock?.price}</td> */}
+            <td>{liveStock}</td>
           </tr>
         </tbody>
       </table>
