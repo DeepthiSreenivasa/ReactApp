@@ -11,7 +11,7 @@ const useMarkets = (symbol: string) => {
     console.log('Into useEffetc');
     getMarkets(symbol)
       .then((data) => setStocks(data))
-      .catch((err) => setError('Err'))
+      .catch((err) => setError(err))
       .finally(() => {
         setIsLoading(false);
       });

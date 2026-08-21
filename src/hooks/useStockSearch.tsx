@@ -21,7 +21,7 @@ const useStockSearch = (query: string) => {
 
     const timer = setInterval(() => {
       setIsLoading(true);
-      searchStocks(query, controller)
+      searchStocks(query, controller.signal)
         .then((data) => {
           if (controller.signal.aborted) {
             return;

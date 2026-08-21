@@ -55,7 +55,31 @@ Note: "useEffect is mandatory whenever localStorage is involved."
             - You shouldnt call the effect in the component
             - Markets Component -> useMarkets(inside useMarkets UseEffect will be called, this should return data,error,loading) -> Service (inside service fetch will be called)
 
+---
+
+# Step 1 : Created a debounce searh
+
+---
+
+# Step 1 : Application fetches mock data or real data based on the config in env
+
+---
+
+# Step 1 : Created an Mock data to mimic real time updates
+
+---
+
 #TODO
 Global Error Handle
 WEbsockets
 Calling mock v/s real apis with just a flag
+
+Moving API Key to BFF
+Improving the application with structured logging
+
+Check if timer gets removed when you move from one component to another
+
+# Rules :
+
+React Hook should only be called inside another react component
+or a customeHook

@@ -1,3 +1,5 @@
+import { env } from '../config/env';
+import { mockStocks, mockStockSearchResults } from '../mocks/marketMockData';
 import type { Stock } from '../types/stock';
 import type { StockSearchResult } from '../types/stockSearchResults';
 import mapAlphaVantageStock from './marketMapper';
@@ -17,7 +19,26 @@ const stock: Stock[] = [
   },
 ];
 
+export const getMarketFromMockData = async (symbol: string): Promise<Stock> => {
+  console.log('mockStocks::', mockStocks);
+  const stock = mockStocks.find((item) => item.symbol == symbol);
+
+  if (!stock) {
+    throw new Error(`Stock with symbol "${symbol}" not found.`);
+  }
+
+  return stock;
+};
+
 export const getMarkets = async (symbol: string): Promise<Stock> => {
+  if (env.USE_MOCK_DATA) {
+    return getMarketFromMockData(symbol);
+  }
+
+  return getMarketsFromAPI(symbol);
+};
+
+export const getMarketsFromAPI = async (symbol: string): Promise<Stock> => {
   const api = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
   //const api = '';
   const response = await fetch(api);
@@ -35,13 +56,20 @@ export const getMarkets = async (symbol: string): Promise<Stock> => {
   return stock;
 };
 
-export const searchStocks = async (
+export const searchStocksFromMock = async (
   query: string,
-  controller: AbortController
+  controller: AbortSignal
+): Promise<StockSearchResult[]> => {
+  return [];
+};
+
+export const searchStocksFromApi = async (
+  query: string,
+  signal: AbortSignal
 ): Promise<StockSearchResult[]> => {
   const api = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${encodeURIComponent(query)}&apikey=${apiKey}`;
 
-  const response = await fetch(api, { signal: controller.signal });
+  const response = await fetch(api, { signal: signal });
 
   if (!response.ok) {
     throw new Error('Something went wrong');
@@ -54,4 +82,15 @@ export const searchStocks = async (
   console.log('API Respone::', data);
 
   return results;
+};
+
+export const searchStocks = async (
+  symbol: string,
+  signal: AbortSignal
+): Promise<StockSearchResult[]> => {
+  if (env.USE_MOCK_DATA) {
+    return searchStocksFromMock(symbol, signal);
+  }
+
+  return searchStocksFromApi(symbol, signal);
 };

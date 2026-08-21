@@ -2,6 +2,7 @@ import type { Stock } from '../types/stock';
 import type { AlphaVantageDailyResponse } from '../types/alphaVantageDailyResponse';
 
 const mapAlphaVantageStock = (data: AlphaVantageDailyResponse): Stock => {
+  console.log('Data::', data);
   const timeSeries = data['Time Series (Daily)'];
   const dates = Object.keys(timeSeries);
 
