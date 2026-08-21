@@ -83,3 +83,7 @@ Check if timer gets removed when you move from one component to another
 
 React Hook should only be called inside another react component
 or a customeHook
+
+# You should have types for your selector and dispatcher as
+
+# well, this will help the app know the type that you are using
