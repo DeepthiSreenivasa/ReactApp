@@ -6,6 +6,7 @@ import useMarketFeed from '../../../hooks/useMarketFeed';
 
 const Markets = () => {
   const [searchString, setSearchString] = useState('');
+  const [selectedSymbol, setSelectedSymbol] = useState('RELIANCE');
 
   const liveStock = useAppSelector((state) => state.market.liveStock?.price);
 
@@ -13,7 +14,7 @@ const Markets = () => {
     stock,
     isLoading: marketLoading,
     error: marketError,
-  } = useMarkets('RELIANCE');
+  } = useMarkets(selectedSymbol);
 
   const {
     searchResults,
@@ -21,7 +22,7 @@ const Markets = () => {
     error: searchError,
   } = useStockSearch('RELIANCE.BSE');
 
-  useMarketFeed('RELIANCE');
+  useMarketFeed(selectedSymbol);
 
   if (marketError) {
     console.log(marketError);
