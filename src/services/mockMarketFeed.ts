@@ -12,6 +12,7 @@ export const mockMarketFeed = (
   }
 
   let currentStock = initialStock;
+  onUpdate(currentStock);
   const interval = setInterval(() => {
     const updatedStock = generatePrice(currentStock);
     currentStock = updatedStock;
@@ -28,8 +29,6 @@ const generatePrice = (stock: Stock): Stock => {
   const change = newPrice - prevPrice;
 
   const changePercent = (change / prevPrice) * 100;
-
-  console.log('Previous price:', prevPrice, 'New price:', newPrice);
 
   return {
     symbol: 'RELIANCE',
