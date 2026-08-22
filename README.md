@@ -89,6 +89,8 @@ START FEED: RELIANCE
 STOP FEED: RELIANCE
 START FEED: AAPL
 
+Draw the different layers of interaction in the API
+
 # Rules :
 
 React Hook should only be called inside another react component

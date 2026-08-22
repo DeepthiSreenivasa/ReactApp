@@ -4,11 +4,16 @@ import useStockSearch from '../../../hooks/useStockSearch';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import useMarketFeed from '../../../hooks/useMarketFeed';
 
+const symbols = ['RELIANCE', 'AAPL', 'MSFT', 'NVDA'];
+//Moved this out as it was getting created on every component render
+
 const Markets = () => {
   const [searchString, setSearchString] = useState('');
   const [selectedSymbol, setSelectedSymbol] = useState('RELIANCE');
 
-  const liveStock = useAppSelector((state) => state.market.liveStock?.price);
+  const liveStock = useAppSelector(
+    (state) => state.market.stocks[selectedSymbol]
+  );
 
   const {
     stock,
@@ -22,7 +27,7 @@ const Markets = () => {
     error: searchError,
   } = useStockSearch('RELIANCE.BSE');
 
-  useMarketFeed(selectedSymbol);
+  useMarketFeed(symbols);
 
   if (marketError) {
     console.log(marketError);
@@ -63,7 +68,7 @@ const Markets = () => {
             <td>{stock?.price}</td>
             <td>{stock?.change}</td>
             <td>{stock?.changePercent}</td>
-            <td>{liveStock}</td>
+            <td>{liveStock?.price}</td>
           </tr>
         </tbody>
       </table>

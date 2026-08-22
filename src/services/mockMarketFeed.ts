@@ -1,4 +1,4 @@
-import { mockStocks, mockStockSearchResults } from '../mocks/marketMockData';
+import { mockStocks } from '../mocks/marketMockData';
 import type { Stock } from '../types/stock';
 
 export const mockMarketFeed = (
@@ -31,8 +31,8 @@ const generatePrice = (stock: Stock): Stock => {
   const changePercent = (change / prevPrice) * 100;
 
   return {
-    symbol: 'RELIANCE',
-    name: 'Reliance Industries',
+    symbol: stock.symbol,
+    name: stock.name,
     price: newPrice,
     change: change,
     changePercent: changePercent,

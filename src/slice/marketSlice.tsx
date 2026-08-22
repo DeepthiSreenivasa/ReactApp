@@ -2,11 +2,11 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Stock } from '../types/stock';
 
 interface MarketState {
-  liveStock: Stock | null;
+  stocks: Record<string, Stock>;
 }
 
 const initialState: MarketState = {
-  liveStock: null,
+  stocks: {},
 };
 
 const marketSlice = createSlice({
@@ -14,7 +14,10 @@ const marketSlice = createSlice({
   initialState: initialState,
   reducers: {
     updateLiveStock: (state, action: PayloadAction<Stock>) => {
-      state = { ...state, liveStock: action.payload };
+      state = {
+        ...state,
+        stocks: { ...state.stocks, [action.payload.symbol]: action.payload },
+      };
       return state;
     },
   },
