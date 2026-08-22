@@ -9,16 +9,6 @@ const apiKey = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
 
 console.log('APIKey::', apiKey);
 
-const stock: Stock[] = [
-  {
-    name: 'Reliance Industries',
-    symbol: 'RELIANCE',
-    price: 1432.55,
-    change: 12.45,
-    changePercent: 0.87,
-  },
-];
-
 export const getMarketFromMockData = async (symbol: string): Promise<Stock> => {
   console.log('mockStocks::', mockStocks);
   const stock = mockStocks.find((item) => item.symbol == symbol);

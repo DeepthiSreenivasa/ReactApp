@@ -29,6 +29,7 @@ const mapAlphaVantageStock = (data: AlphaVantageDailyResponse): Stock => {
     price: latestClose,
     change: change,
     changePercent: changePercent,
+    timeStamp: new Date(latestDate).getTime(),
   };
 };
 

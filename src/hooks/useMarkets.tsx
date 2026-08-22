@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import type { Stock } from '../types/stock';
 import { getMarkets } from '../services/marketService';
 import { updateLiveStock } from '../slice/marketSlice';
 import { useAppDispatch } from '../store/hook';
