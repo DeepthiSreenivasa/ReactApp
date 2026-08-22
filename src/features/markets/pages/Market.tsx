@@ -1,9 +1,6 @@
 import { useEffect, useState, type ChangeEvent } from 'react';
 import useMarkets from '../../../hooks/useMarkets';
 import useStockSearch from '../../../hooks/useStockSearch';
-import { mockMarketFeed } from '../../../services/mockMarketFeed';
-import { updateLiveStock } from '../../../slice/marketSlice';
-import type { Stock } from '../../../types/stock';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import useMarketFeed from '../../../hooks/useMarketFeed';
 
@@ -24,7 +21,7 @@ const Markets = () => {
     error: searchError,
   } = useStockSearch('RELIANCE.BSE');
 
-  useMarketFeed();
+  useMarketFeed('RELIANCE');
 
   if (marketError) {
     console.log(marketError);

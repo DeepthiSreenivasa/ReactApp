@@ -76,6 +76,7 @@ Calling mock v/s real apis with just a flag
 
 Moving API Key to BFF
 Improving the application with structured logging
+Understamding the callBack in OnUpdate
 
 Check if timer gets removed when you move from one component to another
 

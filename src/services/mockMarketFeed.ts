@@ -1,20 +1,41 @@
+import { mockStocks, mockStockSearchResults } from '../mocks/marketMockData';
 import type { Stock } from '../types/stock';
 
-export const mockMarketFeed = (onUpdate: (stock: Stock) => void) => {
+export const mockMarketFeed = (
+  symbol: string,
+  onUpdate: (stock: Stock) => void
+) => {
+  const initialStock = mockStocks.find((item) => item.symbol === symbol);
+
+  if (!initialStock) {
+    throw new Error(`Stock not found: ${symbol}`);
+  }
+
+  let currentStock = initialStock;
   const interval = setInterval(() => {
-    const stock = generatePrice();
-    onUpdate(stock);
+    const updatedStock = generatePrice(currentStock);
+    currentStock = updatedStock;
+    onUpdate(currentStock);
   }, 5000);
   return () => clearInterval(interval);
 };
 
-const generatePrice = (): Stock => {
-  const price = 1232.55 + (Math.random() - 0.5) * 10;
+const generatePrice = (stock: Stock): Stock => {
+  const prevPrice = stock.price;
+
+  const newPrice = prevPrice + (Math.random() - 0.5) * 10;
+
+  const change = newPrice - prevPrice;
+
+  const changePercent = (change / prevPrice) * 100;
+
+  console.log('Previous price:', prevPrice, 'New price:', newPrice);
+
   return {
     symbol: 'RELIANCE',
     name: 'Reliance Industries',
-    price: price,
-    change: 12.45,
-    changePercent: 0.87,
+    price: newPrice,
+    change: change,
+    changePercent: changePercent,
   };
 };

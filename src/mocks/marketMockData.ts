@@ -9,6 +9,34 @@ export const mockStocks: Stock[] = [
     change: 12.45,
     changePercent: 0.87,
   },
+  {
+    name: 'Apple Inc.',
+    symbol: 'AAPL',
+    price: 1532.55,
+    change: 12.45,
+    changePercent: 0.87,
+  },
+  {
+    name: 'Microsoft Corporation',
+    symbol: 'MSFT',
+    price: 1632.55,
+    change: 12.45,
+    changePercent: 0.87,
+  },
+  {
+    name: 'NVIDIA Corporation',
+    symbol: 'NVDA',
+    price: 1732.55,
+    change: 12.45,
+    changePercent: 0.87,
+  },
+  {
+    name: 'Reliance.BSE',
+    symbol: 'Reliance.BSE',
+    price: 1832.55,
+    change: 12.45,
+    changePercent: 0.87,
+  },
 ];
 
 export const mockStockSearchResults: StockSearchResult[] = [

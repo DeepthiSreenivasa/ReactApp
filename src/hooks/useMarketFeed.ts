@@ -4,14 +4,14 @@ import { useAppDispatch } from '../store/hook';
 import type { Stock } from '../types/stock';
 import { updateLiveStock } from '../slice/marketSlice';
 
-const useMarketFeed = () => {
+const useMarketFeed = (symbol: string) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const unsubscribe = mockMarketFeed((stock: Stock) => {
+    const unsubscribe = mockMarketFeed(symbol, (stock: Stock) => {
       dispatch(updateLiveStock(stock));
     });
     return unsubscribe;
-  }, [dispatch]);
+  }, [symbol, dispatch]);
 };
 
 export default useMarketFeed;
