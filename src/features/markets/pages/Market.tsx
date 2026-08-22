@@ -1,7 +1,7 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import useMarkets from '../../../hooks/useMarkets';
 import useStockSearch from '../../../hooks/useStockSearch';
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { useAppSelector } from '../../../store/hook';
 import useMarketFeed from '../../../hooks/useMarketFeed';
 
 const symbols = ['RELIANCE', 'AAPL', 'MSFT', 'NVDA'];
@@ -15,11 +15,10 @@ const Markets = () => {
     (state) => state.market.stocks[selectedSymbol]
   );
 
-  const {
-    stock,
-    isLoading: marketLoading,
-    error: marketError,
-  } = useMarkets(selectedSymbol);
+  const liveStocks = useAppSelector((state) => state.market.stocks);
+
+  const { isLoading: marketLoading, error: marketError } =
+    useMarkets(selectedSymbol);
 
   const {
     searchResults,
@@ -58,18 +57,38 @@ const Markets = () => {
             <th>Price</th>
             <th>Change</th>
             <th>Change %</th>
-            <th>Live Stock</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{stock?.symbol}</td>
-            <td>{stock?.name}</td>
-            <td>{stock?.price}</td>
-            <td>{stock?.change}</td>
-            <td>{stock?.changePercent}</td>
+            <td>{liveStock?.symbol}</td>
+            <td>{liveStock?.name}</td>
             <td>{liveStock?.price}</td>
+            <td>{liveStock?.change}</td>
+            <td>{liveStock?.changePercent}</td>
           </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Change %</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.values(liveStocks).map((stock) => (
+            <tr key={stock?.symbol}>
+              <td>{stock?.symbol}</td>
+              <td>{stock?.name}</td>
+              <td>{stock?.price}</td>
+              <td>{stock?.change}</td>
+              <td>{stock?.changePercent}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

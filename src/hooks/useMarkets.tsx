@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { Stock } from '../types/stock';
 import { getMarkets } from '../services/marketService';
+import { updateLiveStock } from '../slice/marketSlice';
+import { useAppDispatch } from '../store/hook';
 
 const useMarkets = (symbol: string) => {
-  const [stock, setStocks] = useState<Stock>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     console.log('Into useEffect');
@@ -13,7 +15,9 @@ const useMarkets = (symbol: string) => {
     setError(null);
     const controller = new AbortController();
     getMarkets(symbol, controller.signal)
-      .then((data) => setStocks(data))
+      .then((data) => {
+        dispatch(updateLiveStock(data));
+      })
       .catch((err) => {
         if (controller.signal.aborted) return; //ignore the error which comes from abort signal
 
@@ -29,9 +33,9 @@ const useMarkets = (symbol: string) => {
       });
 
     return () => controller.abort();
-  }, [symbol]);
+  }, [symbol, dispatch]); //Since the effect uses dispatch, that's the correct dependency declaration.
 
-  return { stock, isLoading, error };
+  return { isLoading, error };
 };
 
 export default useMarkets;
