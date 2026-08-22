@@ -1,5 +1,6 @@
 import { env } from '../config/env';
 import { mockStocks, mockStockSearchResults } from '../mocks/marketMockData';
+import type { AlphaVantageDailyResponse } from '../types/alphaVantageDailyResponse';
 import type { Stock } from '../types/stock';
 import type { StockSearchResult } from '../types/stockSearchResults';
 import mapAlphaVantageStock from './marketMapper';
@@ -42,7 +43,7 @@ export const getMarketsFromAPI = async (
     throw new Error('Failed to fetch market data');
   }
 
-  const data = await response.json();
+  const data: AlphaVantageDailyResponse = await response.json();
 
   console.log('API Respone::', data);
 

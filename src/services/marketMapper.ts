@@ -1,14 +1,22 @@
 import type { Stock } from '../types/stock';
 import type { AlphaVantageDailyResponse } from '../types/alphaVantageDailyResponse';
+import { instruments } from '../mocks/instrumentData';
 
 const mapAlphaVantageStock = (data: AlphaVantageDailyResponse): Stock => {
   console.log('Data::', data);
   const timeSeries = data['Time Series (Daily)'];
+  if (!timeSeries) {
+    throw new Error('Market data is unavailable');
+  }
   const dates = Object.keys(timeSeries);
 
   const sortedDates = dates.sort(
-    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+    (a, b) => new Date(b).getTime() - new Date(a).getTime()
   );
+
+  if (sortedDates.length < 2) {
+    throw new Error('Insufficient market data');
+  }
 
   const latestDate = sortedDates[0];
   const previousDate = sortedDates[1];
@@ -23,9 +31,17 @@ const mapAlphaVantageStock = (data: AlphaVantageDailyResponse): Stock => {
 
   const changePercent = (change / previousClose) * 100;
 
+  const symbol = data['Meta Data']['2. Symbol'];
+
+  const instrument = instruments.find((item) => item.symbol === symbol);
+
+  if (!instrument) {
+    throw new Error(`Instrument not found for ${symbol}`);
+  }
+
   return {
-    symbol: data['Meta Data']['2. Symbol'],
-    name: 'Reliance Industries',
+    symbol: symbol,
+    name: instrument.name,
     price: latestClose,
     change: change,
     changePercent: changePercent,
