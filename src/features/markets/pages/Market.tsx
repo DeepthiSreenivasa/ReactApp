@@ -1,13 +1,27 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import useMarkets from '../../../hooks/useMarkets';
 import useStockSearch from '../../../hooks/useStockSearch';
 import { useAppSelector } from '../../../store/hook';
 import useMarketFeed from '../../../hooks/useMarketFeed';
+import { connectMarketWebSocket } from '../../../services/marketWebSocket';
 
 const symbols = ['RELIANCE', 'AAPL', 'MSFT', 'NVDA'];
 //Moved this out as it was getting created on every component render
 
 const Markets = () => {
+  useEffect(() => {
+    const socket = connectMarketWebSocket();
+
+    return () => {
+      if (
+        socket.readyState === WebSocket.OPEN ||
+        socket.readyState === WebSocket.CONNECTING
+      ) {
+        socket.close();
+      }
+    };
+  }, []);
+
   const [searchString, setSearchString] = useState('');
   const [selectedSymbol, setSelectedSymbol] = useState('RELIANCE');
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getMarkets } from '../services/marketService';
 import { updateLiveStock } from '../slice/marketSlice';
 import { useAppDispatch } from '../store/hook';
+import { connectMarketWebSocket } from '../services/marketWebSocket';
 
 const useMarkets = (symbol: string) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,6 +11,7 @@ const useMarkets = (symbol: string) => {
 
   useEffect(() => {
     console.log('Into useEffect');
+
     setIsLoading(true);
     setError(null);
     const controller = new AbortController();
@@ -31,7 +33,9 @@ const useMarkets = (symbol: string) => {
         setIsLoading(false);
       });
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+    };
   }, [symbol, dispatch]); //Since the effect uses dispatch, that's the correct dependency declaration.
 
   return { isLoading, error };
