@@ -30,18 +30,23 @@ export const getMarketFromMockData = async (symbol: string): Promise<Stock> => {
   return stock;
 };
 
-export const getMarkets = async (symbol: string): Promise<Stock> => {
+export const getMarkets = async (
+  symbol: string,
+  signal: AbortSignal
+): Promise<Stock> => {
   if (env.USE_MOCK_DATA) {
     return getMarketFromMockData(symbol);
   }
 
-  return getMarketsFromAPI(symbol);
+  return getMarketsFromAPI(symbol, signal);
 };
 
-export const getMarketsFromAPI = async (symbol: string): Promise<Stock> => {
+export const getMarketsFromAPI = async (
+  symbol: string,
+  signal: AbortSignal
+): Promise<Stock> => {
   const api = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
-  //const api = '';
-  const response = await fetch(api);
+  const response = await fetch(api, { signal: signal });
 
   if (!response.ok) {
     throw new Error('Failed to fetch market data');

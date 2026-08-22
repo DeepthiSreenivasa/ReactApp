@@ -79,6 +79,15 @@ Improving the application with structured logging
 Understamding the callBack in OnUpdate
 
 Check if timer gets removed when you move from one component to another
+Understand how abort controller loader works when we start one request and start another one before the previous one ends
+Check this
+START FEED: AAPL
+
+STOP FEED: AAPL
+START FEED: RELIANCE
+
+STOP FEED: RELIANCE
+START FEED: AAPL
 
 # Rules :
 
