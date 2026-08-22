@@ -14,10 +14,13 @@ const marketSlice = createSlice({
   initialState: initialState,
   reducers: {
     updateLiveStock: (state, action: PayloadAction<Stock>) => {
-      state = {
-        ...state,
-        stocks: { ...state.stocks, [action.payload.symbol]: action.payload },
-      };
+      const currentStock = state?.stocks[action.payload.symbol];
+
+      if (!currentStock || action.payload.timestamp > currentStock?.timestamp)
+        state = {
+          ...state,
+          stocks: { ...state.stocks, [action.payload.symbol]: action.payload },
+        };
       return state;
     },
   },

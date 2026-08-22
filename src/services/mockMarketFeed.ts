@@ -36,6 +36,6 @@ const generatePrice = (stock: Stock): Stock => {
     price: newPrice,
     change: change,
     changePercent: changePercent,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   };
 };

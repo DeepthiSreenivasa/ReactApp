@@ -8,7 +8,7 @@ export const mockStocks: Stock[] = [
     price: 1432.55,
     change: 12.45,
     changePercent: 0.87,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   },
   {
     name: 'Apple Inc.',
@@ -16,7 +16,7 @@ export const mockStocks: Stock[] = [
     price: 1532.55,
     change: 12.45,
     changePercent: 0.87,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   },
   {
     name: 'Microsoft Corporation',
@@ -24,7 +24,7 @@ export const mockStocks: Stock[] = [
     price: 1632.55,
     change: 12.45,
     changePercent: 0.87,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   },
   {
     name: 'NVIDIA Corporation',
@@ -32,7 +32,7 @@ export const mockStocks: Stock[] = [
     price: 1732.55,
     change: 12.45,
     changePercent: 0.87,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   },
   {
     name: 'Reliance.BSE',
@@ -40,7 +40,7 @@ export const mockStocks: Stock[] = [
     price: 1832.55,
     change: 12.45,
     changePercent: 0.87,
-    timeStamp: Date.now(),
+    timestamp: Date.now(),
   },
 ];
 
